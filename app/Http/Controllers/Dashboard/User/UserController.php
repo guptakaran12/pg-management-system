@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Http\Controllers\Dashboard\User;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+class UserController extends Controller
+{
+    public function create()
+    {
+        return view('dashboard.user.create');
+    }
+}
