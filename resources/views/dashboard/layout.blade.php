@@ -42,6 +42,9 @@
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+    <!-- DataTable CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap5.min.css') }}">
+
     <!-- Bootstrap Tagsinput CSS -->
     <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}">
     <!-- Toaster -->
@@ -58,11 +61,11 @@
     <div class="main-wrapper">
 
         <!-- Header -->
-        @include('dashboard.header')
+        {{-- @include('dashboard.header') --}}
         <!-- /Header -->
 
         <!-- Sidebar -->
-        @include('dashboard.sidebar')
+        {{-- @include('dashboard.sidebar') --}}
         <!-- /Sidebar -->
 
         {{-- Session Toaster --}}
@@ -95,12 +98,18 @@
     <script src="{{ asset('assets/plugins/apexchart/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/apexchart/chart-data.js') }}"></script>
 
+    <!-- DataTable JS -->
+    <script src="{{ asset('assets/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/js/dataTables.bootstrap5.min.js') }}"></script>
+
+
     <!-- Feather icons -->
     <script src="{{ asset('assets/js/feather.min.js') }}"></script>
 
     <!-- Theme and custom scripts last -->
     <script src="{{ asset('assets/js/theme-script.js') }}"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             window.Echo.channel("public-message").listen("MessageSent", (event) => {

@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
             [
                 'full_name' => 'Super Admin',
                 'email' => 'admin@pgsystem.com',
-                'mobile_no' => '9999999999',
+                'phone_number' => '9999999999',
                 'gender' => 'Male',
                 'dob' => '1990-01-01',
                 'join_date' => now(),

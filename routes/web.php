@@ -11,7 +11,9 @@ Route::middleware(['auth','prevent-back-history'])->group(function(){
 
       // ===== User Management (Admin Only) =====
       Route::prefix('dashboard/users')->group(function(){
-          Route::get('/create', [UserController::class, 'create'])->name('users.create');
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::get('/create', [UserController::class, 'createShowPage'])->name('users.create');
+        Route::post('/save', [UserController::class, 'saveUser'])->name('save.user');
       });
 });
 

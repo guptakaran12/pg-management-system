@@ -11,9 +11,11 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('full_name');
+             $table->string('profile_image')->nullable();
             $table->string('email')->unique()->nullable(); 
-            $table->string('mobile_no')->nullable();
-            $table->tinyInteger('gender')->comment('1=Male, 2=Female, 3=Other')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+
             $table->date('dob')->nullable();
             $table->date('join_date')->nullable();
 

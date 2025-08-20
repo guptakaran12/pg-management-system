@@ -23,7 +23,17 @@
             return <<<EOT
                 <script>
                     function hideValidationMsg() {
+                        // Normal fields ke liye
                         $('input, textarea, select').on('input change', function() {
+                            const fieldId = $(this).attr('id');
+                            $('#' + fieldId + '_error').hide();
+                            $('#' + fieldId)
+                                .removeClass('is-invalid')
+                                .removeAttr('style');
+                        });
+    
+                        // Special case: datetimepicker (DOB)
+                        $('#dob, #joining_date').on('dp.change change input', function() {
                             const fieldId = $(this).attr('id');
                             $('#' + fieldId + '_error').hide();
                             $('#' + fieldId)
@@ -35,7 +45,8 @@
             EOT;
         }
     }
-
+    
+    
     if (!function_exists('ajaxErrorHandlerScript')) {
         function ajaxErrorHandlerScript(): string
         {

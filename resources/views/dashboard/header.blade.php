@@ -81,7 +81,7 @@
                                        <div class="row gx-2">
 
                                            <div class="col-6">
-                                               <a href="add-teacher.html.htm"
+                                               <a href="{{ route('users.create') }}"
                                                    class="d-block bg-success-transparent ronded p-2 text-center mb-3 class-hover">
                                                    <div class="avatar avatar-lg mb-2">
                                                        <span
