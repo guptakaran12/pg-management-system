@@ -61,11 +61,11 @@
     <div class="main-wrapper">
 
         <!-- Header -->
-        {{-- @include('dashboard.header') --}}
+        @include('dashboard.header')
         <!-- /Header -->
 
         <!-- Sidebar -->
-        {{-- @include('dashboard.sidebar') --}}
+        @include('dashboard.sidebar')
         <!-- /Sidebar -->
 
         {{-- Session Toaster --}}

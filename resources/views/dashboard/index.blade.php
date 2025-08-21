@@ -10,7 +10,7 @@
                     <nav>
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item">
-                                <a href="index.html.htm">{{ __('Dashboard') }}</a>
+                                <a href="{{ route('dashboard.index') }}">{{ __('Dashboard') }}</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">{{ __('Admin Dashboard') }}</li>
                         </ol>
@@ -20,10 +20,6 @@
                     <div class="mb-2">
                         <a href="{{ route('users.create') }}" class="btn btn-primary d-flex align-items-center me-3"><i
                                 class="ti ti-square-rounded-plus me-2"></i>{{ __('Add New User') }}</a>
-                    </div>
-                    <div class="mb-2">
-                        <a href="{{ route('users.index') }}"
-                            class="btn btn-light d-flex align-items-center">{{ __('User Details') }}</a>
                     </div>
                 </div>
             </div>
@@ -45,7 +41,7 @@
                                     <div class="d-flex align-items-center flex-wrap mb-2">
                                         <h1 class="text-white me-2">{{ __('Welcome Back,') }}
                                             {{ Auth::user()->full_name ?? '' }}</h1>
-                                        <a href="profile.html.htm"
+                                        <a href="#"
                                             class="avatar avatar-sm img-rounded bg-gray-800 dark-hover"><i
                                                 class="ti ti-edit text-white"></i></a>
                                     </div>
@@ -69,20 +65,25 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-xl bg-danger-transparent me-2 p-1">
-                                    <img src="{{ asset('assets/img/icons/student.svg') }}" alt="img">
+                                    <img src="{{ asset('assets/img/authentication/user.png') }}" alt="img">
                                 </div>
                                 <div class="overflow-hidden flex-fill">
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <h2 class="counter">{{ isset($userCount) ? $userCount : '0' }}</h2>
-                                        <span class="badge bg-danger">1.2%</span>
+                                        <h2 class="counter">{{ isset($totalUsers) ? $totalUsers : '0' }}</h2>
+                                        <span
+                                            class="badge bg-danger">{{ isset($activePercent) ? $activePercent : '0' }}%</span>
                                     </div>
                                     <p>{{ __('Total Users') }}</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between border-top mt-3 pt-3">
-                                <p class="mb-0">Active : <span class="text-dark fw-semibold">3643</span></p>
+                                <p class="mb-0">{{ __('Active') }} : <span
+                                        class="text-dark fw-semibold">{{ isset($activeUsers) ? $activeUsers : '0' }}</span>
+                                </p>
                                 <span class="text-light">|</span>
-                                <p>Inactive : <span class="text-dark fw-semibold">11</span></p>
+                                <p>{{ __('Inactive') }} : <span
+                                        class="text-dark fw-semibold">{{ isset($inactiveUsers) ? $inactiveUsers : '0' }}</span>
+                                </p>
                             </div>
                         </div>
                     </div>

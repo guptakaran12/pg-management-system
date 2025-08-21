@@ -22,6 +22,7 @@ class UserRequest extends FormRequest
             'current_address'   => ['required', 'string', 'max:500'],
             'permanent_address' => ['required', 'string', 'max:500'],
             'phone_number'      => ['required', 'digits_between:10,15', 'unique:users,phone_number'],
+            'status'            => ['required', 'in:active,inactive'],
             'role'              => ['required'],
             'username'          => ['required', 'string', 'min:4', 'max:50', 'unique:users,username'],
             'password'          => ['required', 'string', 'min:8', 'max:50','regex:/^(?=.*[A-Z]).+$/'],
@@ -69,7 +70,8 @@ class UserRequest extends FormRequest
             'phone_number.unique'         => 'This phone number is already registered.',
 
             'role.required'               => 'Please select a role.',
-
+            'status.required'             => 'Please select the account status.',
+            'status.in'                   => 'The status must be either Active or Inactive.',
             'username.required'           => 'Username is required.',
             'username.string'             => 'Username must be a valid string.',
             'username.min'                => 'Username must be at least 4 characters.',

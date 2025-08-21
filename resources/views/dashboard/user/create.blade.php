@@ -12,10 +12,10 @@
                     <nav>
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item">
-                                <a href="index.html.htm">{{ __('Dashboard') }}</a>
+                                <a href="{{ route('dashboard.index') }}">{{ __('Dashboard') }}</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="students.html.htm">{{ __('User') }}</a>
+                                <a href="{{ route('users.index') }}">{{ __('User') }}</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">{{ __('Add User') }}</li>
                         </ol>
@@ -91,12 +91,17 @@
 
                                         <!-- DOB -->
                                         <div class="col-lg-4 col-md-6 mb-3">
-                                            <label class="form-label" for="dob">{{ __('Date Of Birth') }} <span
-                                                    class="text-danger">*</span></label>
+                                            <label class="form-label" for="dob">{{ __('Date Of Birth') }}
+                                                <span class="text-danger">*</span>
+                                            </label>
                                             <div class="input-icon position-relative">
-                                                <span class="input-icon-addon"><i class="ti ti-calendar"></i></span>
                                                 <input type="text" name="dob" id="dob"
-                                                    class="form-control datetimepicker">
+                                                    class="form-control datetimepicker" style="padding-right: 38px;">
+                                                <!-- text icon  -->
+                                                <span class="input-icon-addon"
+                                                    style="right: 14px; position: absolute; top: 50%; transform: translateY(-50%);">
+                                                    <i class="ti ti-calendar"></i>
+                                                </span>
                                             </div>
                                             <span class="text-danger fw-bold" id="dob_error"
                                                 style="display:none; padding-top:4px; display:inline-block;"></span>
@@ -107,7 +112,9 @@
                                             <label class="form-label" for="dob">{{ __('Joining Date') }} <span
                                                     class="text-danger">*</span></label>
                                             <div class="input-icon position-relative">
-                                                <span class="input-icon-addon"><i class="ti ti-calendar"></i></span>
+                                                <span class="input-icon-addon"
+                                                    style="right: 14px; position: absolute; top: 50%; transform: translateY(-50%);"><i
+                                                        class="ti ti-calendar"></i></span>
                                                 <input type="text" name="joining_date" id="joining_date"
                                                     class="form-control datetimepicker">
                                             </div>
@@ -132,7 +139,6 @@
                             </div>
                         </div>
                         <!-- /Personal Details -->
-
 
                         <!-- Contact Details -->
                         <div class="card">
@@ -217,6 +223,22 @@
                                                 <option value="staff">{{ __('Staff ') }}</option>
                                             </select>
                                             <span class="text-danger fw-bold" id="role_error"
+                                                style="display:none; padding-top:4px; display:inline-block;"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Status  -->
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="status">{{ __('Status') }}
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select class="form-control" name="status" id="status">
+                                                <option value="">{{ __('Status') }}</option>
+                                                <option value="active">{{ __('Active ') }}</option>
+                                                <option value="inactive">{{ __('Inactive') }}</option>
+                                            </select>
+                                            <span class="text-danger fw-bold" id="status_error"
                                                 style="display:none; padding-top:4px; display:inline-block;"></span>
                                         </div>
                                     </div>

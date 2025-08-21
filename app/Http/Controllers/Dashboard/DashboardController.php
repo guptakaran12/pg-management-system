@@ -13,9 +13,24 @@ class DashboardController extends Controller
     public function index()
     {
           if(Gate::allows('viewAdminDashboard')){
-              $userCount = "0";
-              $userCount = User::where('role', '!=', 'Admin')->count();
-              return view('dashboard.index',compact('userCount'));
+            $stats = User::selectRaw("
+                COUNT(*) as total,
+                SUM(CASE WHEN status = 'active' THEN 1 ELSE 0 END) as active_count,
+                SUM(CASE WHEN status = 'inactive' THEN 1 ELSE 0 END) as inactive_count
+            ")
+            ->where('role', '!=', 'Admin')
+            ->first();
+
+            $activePercent = $stats->total > 0 
+            ? round(($stats->active_count / $stats->total) * 100, 1) 
+            : 0;
+
+            return view('dashboard.index', [
+                'totalUsers'   => $stats->total,
+                'activeUsers'  => $stats->active_count,
+                'inactiveUsers'=> $stats->inactive_count,
+                'activePercent' => $activePercent,
+            ]);
           }
 
           if(Gate::allows('viewUserDashboard')){

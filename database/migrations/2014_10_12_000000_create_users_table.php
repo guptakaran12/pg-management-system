@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('id_proof_file')->nullable(); 
 
            $table->boolean('login_mail')->default(false);
+           $table->enum('status', ['active', 'inactive'])->default('active');
 
             $table->rememberToken();
             $table->timestamps();

@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>{{ $brand }} — {{ $isAdmin ? __('User Login Alert') : __('Login Successful') }}</title>
+    <title>{{ $brand }} — {{ __('Account Created') }}</title>
 </head>
 
 <body
@@ -22,15 +22,14 @@
                     <!-- Header -->
                     <tr>
                         <td align="center"
-                            style="background:linear-gradient(135deg,#2d7eff,#6c5ce7);padding:35px 20px;">
+                            style="background:linear-gradient(135deg,#6c5ce7,#2d7eff);padding:35px 20px;">
                             <div style="font-size:24px;font-weight:800;color:#fff;letter-spacing:.6px;">
-                                {{ $brand }}
-                            </div>
+                                {{ $brand }}</div>
                             <div style="margin-top:8px;color:#dbe7ff;font-size:14px;opacity:.9;">
                                 @if ($isAdmin)
-                                    {{ __('👀 User just logged in') }}
+                                    {{ __('✨ New user created in system') }}
                                 @else
-                                    {{ __('✅ You logged in successfully') }}
+                                    {{ __('🎉 Welcome to your new account') }}
                                 @endif
                             </div>
                         </td>
@@ -41,19 +40,19 @@
                         <td style="padding:32px;">
                             @if ($isAdmin)
                                 <h2 style="color:#fff;margin:0 0 12px;font-size:20px;">
-                                    {{ __('Login Alert 🚨') }}</h2>
+                                    {{ __('New user added 🚀') }}</h2>
                                 <p style="color:#a9b8d9;margin:0 0 22px;font-size:14px;line-height:1.6;">
-                                    {{ __('User') }} <strong style="color:#fff;">{{ $fullName }}</strong>
-                                    ({{ $user['email'] }})
-                                    {{ __('just logged into the system at') }}
-                                    <strong style="color:#fff;">{{ now()->format('d M Y, H:i A') }}</strong>.
+                                    {{ __('A new user has been added to') }} <strong
+                                        style="color:#fff;">{{ $brand }}</strong>.
+                                    {{ __('Here are the credentials for your record:') }}
                                 </p>
                             @else
                                 <h2 style="color:#fff;margin:0 0 12px;font-size:20px;">
-                                    {{ __('Welcome back, :name 👋', ['name' => $fullName]) }}</h2>
+                                    {{ __('Welcome, :name 🎉', ['name' => $fullName]) }}</h2>
                                 <p style="color:#a9b8d9;margin:0 0 22px;font-size:14px;line-height:1.6;">
-                                    {{ __('You have successfully logged into your account.') }}
-                                    {{ __('If this wasn’t you, please secure your account immediately.') }}
+                                    {{ __('Your account on') }} <strong
+                                        style="color:#fff;">{{ $brand }}</strong> {{ __('is now active!') }}
+                                    {{ __('Use the credentials below to log in securely.') }}
                                 </p>
                             @endif
 
@@ -64,47 +63,46 @@
                                     <tr>
                                         <td colspan="2"
                                             style="padding:14px 18px;background:#21262d;color:#8fa7d9;font-size:12px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;">
-                                            {{ __('Login Details') }}
+                                            {{ __('Account Details') }}
                                         </td>
                                     </tr>
+                                    @if (!$isAdmin)
+                                        <tr>
+                                            <td style="padding:12px 18px;color:#a9b8d9;width:160px;">
+                                                {{ __('Full Name') }}</td>
+                                            <td style="padding:12px 18px;color:#fff;">{{ $user['full_name'] ?? '—' }}
+                                            </td>
+                                        </tr>
+                                    @endif
                                     <tr>
-                                        <td style="padding:12px 18px;color:#a9b8d9;width:160px;">
-                                            {{ __('Full Name') }}
-                                        </td>
-                                        <td style="padding:12px 18px;color:#fff;">{{ $fullName }}</td>
+                                        <td style="padding:12px 18px;color:#a9b8d9;">{{ __('Username') }}</td>
+                                        <td style="padding:12px 18px;color:#fff;">{{ $user['username'] ?? '—' }}</td>
                                     </tr>
                                     <tr>
                                         <td style="padding:12px 18px;color:#a9b8d9;">{{ __('Email') }}</td>
                                         <td style="padding:12px 18px;color:#fff;">{{ $user['email'] ?? '—' }}</td>
                                     </tr>
                                     <tr>
-                                        <td style="padding:12px 18px;color:#a9b8d9;">{{ __('Login Time') }}</td>
+                                        <td style="padding:12px 18px;color:#a9b8d9;">{{ __('Password') }}</td>
                                         <td style="padding:12px 18px;color:#fff;font-weight:600;">
-                                            {{ now()->format('d M Y, H:i A') }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="padding:12px 18px;color:#a9b8d9;">{{ __('IP Address') }}</td>
-                                        <td style="padding:12px 18px;color:#fff;">
-                                            {{ request()->ip() ?? '—' }}
-                                        </td>
+                                            {{ $user['password'] ?? '—' }}</td>
                                     </tr>
                                 </table>
                             </div>
 
                             <!-- CTA -->
-                            @if (!$isAdmin)
+                            @if (!$isAdmin && !empty($resetLink))
                                 <div style="text-align:center;margin-top:28px;">
-                                    <a href="{{ url('/dashboard') }}"
+                                    <a href="{{ $resetLink }}"
                                         style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,#2d7eff,#6c5ce7);color:#fff;text-decoration:none;border-radius:12px;font-weight:700;font-size:14px;">
-                                        {{ __('🚀 Go to Dashboard') }}
+                                        {{ __('🔑 Log in to your Account') }}
                                     </a>
                                 </div>
-                            @else
+                            @elseif($isAdmin && !empty($resetLink))
                                 <div style="text-align:center;margin-top:28px;">
-                                    <a href="{{ url('/admin/users') }}"
+                                    <a href="{{ $resetLink }}"
                                         style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,#6c5ce7,#2d7eff);color:#fff;text-decoration:none;border-radius:12px;font-weight:700;font-size:14px;">
-                                        {{ __('👥 View Users Activity') }}
+                                        {{ __('👥 View Users List') }}
                                     </a>
                                 </div>
                             @endif
@@ -112,7 +110,7 @@
                             <!-- Extra Info -->
                             @if (!$isAdmin)
                                 <p style="margin-top:24px;color:#8fa7d9;font-size:12px;line-height:1.6;">
-                                    {{ __('💡 Tip: For better security, always log out when using a shared device.') }}
+                                    {{ __('💡 Tip: For your security, please change your password after your first login from Profile Settings.') }}
                                 </p>
                             @else
                                 <p style="margin-top:24px;color:#8fa7d9;font-size:12px;line-height:1.6;">

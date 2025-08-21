@@ -328,17 +328,21 @@
                                                         </div>
                                                     </td>
                                                     <td><a href="#" class="link-primary">
-                                                            {{ isset($user->id) ? $user->id : '' }}</a>
+                                                            #{{ isset($user->id) ? $user->id : '' }}</a>
                                                     </td>
                                                     <td> {{ isset($user->full_name) ? $user->full_name : '' }}</td>
                                                     <td>
                                                         <div class="d-flex align-items-center">
-                                                            <img src="{{ isset($user->profile_image) && $user->profile_image
-                                                                ? asset('storage/profile_images/' . $user->profile_image)
-                                                                : asset('assets/images/default-avatar.png') }}"
-                                                                alt="Profile Image" class="rounded-circle" width="40"
-                                                                height="40">
+                                                            <div
+                                                                style="width:40px; height:40px; overflow:hidden; border-radius:50%;">
+                                                                <img src="{{ isset($user->profile_image) && $user->profile_image
+                                                                    ? asset('storage/profile_images/' . $user->profile_image)
+                                                                    : asset('assets/img/authentication/user.png') }}"
+                                                                    alt="Profile Image"
+                                                                    style="width:100%; height:100%; object-fit:cover; object-position:center;">
+                                                            </div>
                                                         </div>
+
                                                     </td>
                                                     <td>{{ isset($user->email) ? $user->email : '' }}</td>
                                                     <td>{{ isset($user->phone_number) ? $user->phone_number : '' }}</td>

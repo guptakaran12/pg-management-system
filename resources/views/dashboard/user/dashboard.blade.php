@@ -10,7 +10,7 @@
                     <nav>
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item">
-                                <a href="index.html.htm">{{ __('Dashboard') }}</a>
+                                <a href="{{ route('dashboard.index') }}">{{ __('Dashboard') }}</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">{{ __('User Dashboard') }}</li>
                         </ol>
@@ -35,8 +35,7 @@
                                     <div class="d-flex align-items-center flex-wrap mb-2">
                                         <h1 class="text-white me-2">{{ __('Welcome Back,') }}
                                             {{ Auth::user()->full_name ?? '' }}</h1>
-                                        <a href="profile.html.htm"
-                                            class="avatar avatar-sm img-rounded bg-gray-800 dark-hover"><i
+                                        <a href="#" class="avatar avatar-sm img-rounded bg-gray-800 dark-hover"><i
                                                 class="ti ti-edit text-white"></i></a>
                                     </div>
                                     <p class="text-white">Have a Good day at work</p>

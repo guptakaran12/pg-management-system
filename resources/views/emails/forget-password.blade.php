@@ -1,87 +1,99 @@
+@php
+    $fullName = $user['full_name'] ?? ($user['username'] ?? __('there'));
+    $brand = __('PG Management System');
+@endphp
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="margin:0;padding:0;">
 
 <head>
-    <meta charset="UTF-8">
-    <title>{{ $isAdmin ? __('Password Reset Requested by User | PGMS') : __('Reset Your Password | PGMS') }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ $brand }} — {{ __('Password Reset Notification') }}</title>
 </head>
 
 <body
-    style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f2f2f2;">
-    <div
-        style="max-width: 650px; margin: 30px auto; background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+    style="margin:0;padding:0;background:#0d1117;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0d1117;padding:30px 0;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="600" cellpadding="0" cellspacing="0"
+                    style="max-width:600px;width:100%;background:#161b22;border-radius:20px;overflow:hidden;box-shadow:0 6px 25px rgba(0,0,0,.5);">
 
-        <!-- Header -->
-        <div style="background-color: #003366; padding: 20px; text-align: center;">
-            <img src="https://i.postimg.cc/CLs0W7CK/logo2.png" alt="{{ __('PGMS Logo') }}"
-                style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
-            <h1 style="color: white; margin-top: 10px;">
-                {{ $isAdmin ? __('Password Reset Notification') : __('Reset Your Password') }}
-            </h1>
-        </div>
+                    <!-- Header -->
+                    <tr>
+                        <td align="center"
+                            style="background:linear-gradient(135deg,#6c5ce7,#2d7eff);padding:35px 20px;">
+                            <div style="font-size:24px;font-weight:800;color:#fff;letter-spacing:.6px;">
+                                {{ $brand }}
+                            </div>
+                            <div style="margin-top:8px;color:#dbe7ff;font-size:14px;opacity:.9;">
+                                {{ $isAdmin ? __('🔔 Password Reset Requested (User Alert)') : __('🔒 Password Reset Request') }}
+                            </div>
+                        </td>
+                    </tr>
 
-        <!-- Content -->
-        <div style="padding: 30px;">
-            @if ($isAdmin)
-                <h2 style="color: #2c3e50;">🔒 {{ __('Password Reset Request Received') }}</h2>
-                <p style="font-size: 15px;">
-                    {{ __('A PGMS user has requested a password reset. Below are the details:') }}
-                </p>
+                    <!-- Body -->
+                    <tr>
+                        <td style="padding:32px;">
+                            @if ($isAdmin)
+                                <!-- Admin Email -->
+                                <h2 style="color:#fff;margin:0 0 12px;font-size:20px;">
+                                    {{ __('Hello Admin 👋') }}
+                                </h2>
+                                <p style="color:#a9b8d9;margin:0 0 22px;font-size:14px;line-height:1.6;">
+                                    {{ __('A password reset request has been made by user ":name".', ['name' => $fullName]) }}
+                                </p>
+                                <p style="color:#a9b8d9;font-size:14px;line-height:1.6;">
+                                    {{ __('Requested Email: :email', ['email' => $user['email'] ?? __('N/A')]) }} <br>
+                                    {{ __('Request Time: :time', ['time' => now()->format('d M Y, h:i A')]) }}
+                                </p>
 
-                <ul style="line-height: 1.6;">
-                    <li><strong>{{ __('Name:') }}</strong> {{ $user->first_name }} {{ $user->last_name }}</li>
-                    <li><strong>{{ __('Email:') }}</strong> {{ $user->email }}</li>
-                    @if (isset($user->phone))
-                        <li><strong>{{ __('Phone:') }}</strong> {{ $user->phone }}</li>
-                    @endif
-                    <li><strong>{{ __('Requested At:') }}</strong> {{ now('Asia/Kolkata')->format('d M Y, h:i A') }}
-                    </li>
-                </ul>
+                                <!-- Dashboard Button -->
+                                <div style="text-align:center;margin-top:28px;">
+                                    <a href="{{ url('/dashboard') }}"
+                                        style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,#6c5ce7,#2d7eff);color:#fff;text-decoration:none;border-radius:12px;font-weight:700;font-size:14px;">
+                                        {{ __('📊 View in Dashboard') }}
+                                    </a>
+                                </div>
+                            @else
+                                <!-- User Email -->
+                                <h2 style="color:#fff;margin:0 0 12px;font-size:20px;">
+                                    {{ __('Hello, :name 👋', ['name' => $fullName]) }}
+                                </h2>
+                                <p style="color:#a9b8d9;margin:0 0 22px;font-size:14px;line-height:1.6;">
+                                    {{ __('We received a request to reset the password for your account (:email).', ['email' => $user['email'] ?? __('your email')]) }}
+                                    {{ __('Click the button below to set a new password.') }}
+                                </p>
 
-                <p style="margin-top: 20px;">
-                    <a href="{{ $resetPasswordUrl }}"
-                        style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
-                        {{ __('View in PGMS Admin Panel') }}
-                    </a>
-                </p>
-            @else
-                <h2 style="color: #2c3e50;">🔐 {{ __('Hello') }} {{ $user->first_name }},</h2>
-                <p style="font-size: 16px;">
-                    {{ __('We received a request to reset your password for your PGMS account.') }}
-                </p>
+                                <!-- Reset Button -->
+                                <div style="text-align:center;margin-top:28px;">
+                                    <a href="{{ $resetLink }}"
+                                        style="display:inline-block;padding:14px 28px;background:linear-gradient(135deg,#2d7eff,#6c5ce7);color:#fff;text-decoration:none;border-radius:12px;font-weight:700;font-size:14px;">
+                                        {{ __('🔑 Reset Your Password') }}
+                                    </a>
+                                </div>
 
-                <p
-                    style="background: #fff4e5; padding: 15px; border-left: 4px solid #ffa500; font-size: 14px; border-radius: 4px;">
-                    🕒 {{ __('Request Time:') }} <strong>{{ now('Asia/Kolkata')->format('d M Y, h:i A') }}</strong>
-                </p>
+                                <!-- Info -->
+                                <p style="margin-top:24px;color:#8fa7d9;font-size:12px;line-height:1.6;">
+                                    {{ __('If you didn’t request this, you can safely ignore this email. Your account will remain secure.') }}
+                                </p>
+                            @endif
+                        </td>
+                    </tr>
 
-                <p style="margin-top: 20px;">
-                    {{ __('Click the button below to reset your password. This link will expire in 60 minutes.') }}
-                </p>
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center"
+                            style="background:#161b22;padding:22px;color:#7e92be;font-size:12px;line-height:1.6;border-top:1px solid rgba(255,255,255,.08);">
+                            © {{ date('Y') }} {{ $brand }} — {{ __('All rights reserved.') }}<br>
+                            {{ __('If you didn’t expect this email, please ignore it safely.') }}
+                        </td>
+                    </tr>
 
-                <p style="margin-top: 25px; text-align: center;">
-                    <a href="{{ $resetLink }}"
-                        style="background-color: #28a745; color: white; padding: 12px 25px; font-size: 16px; text-decoration: none; border-radius: 5px;">
-                        {{ __('Reset Password') }}
-                    </a>
-                </p>
-
-                <p style="margin-top: 30px; font-size: 14px; color: #555;">
-                    {{ __('If you didn’t request this, you can safely ignore this email.') }}
-                </p>
-
-                <p style="font-size: 14px; color: #555; margin-top: 20px;">
-                    {{ __('Thanks,') }}<br>
-                    <strong>{{ __('Team PGMS') }}</strong>
-                </p>
-            @endif
-        </div>
-
-        <!-- Footer -->
-        <div style="background-color: #f7f7f7; padding: 20px; text-align: center; font-size: 13px; color: #999;">
-            © {{ date('Y') }} {{ __('PGMS') }}. {{ __('All rights reserved.') }}
-        </div>
-    </div>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 
 </html>
